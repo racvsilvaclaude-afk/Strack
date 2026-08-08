@@ -3,7 +3,12 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // GitHub Pages serves this project from https://<user>.github.io/Strack/,
+  // not from the domain root, so production builds need every asset URL
+  // prefixed with /Strack/. The dev server (npm run dev) is unaffected —
+  // it always serves from root.
+  base: command === 'build' ? '/Strack/' : '/',
   plugins: [
     react(),
     VitePWA({
@@ -16,14 +21,17 @@ export default defineConfig({
         name: 'Strack — Gatsby Reading Music',
         short_name: 'Strack',
         description: 'Reading The Great Gatsby with scene-matched ambient music.',
-        start_url: '/',
+        // Relative (no leading slash) so these resolve correctly whether
+        // the app is served from the domain root (local dev) or from a
+        // subpath (GitHub Pages) without hardcoding either one.
+        start_url: '.',
         display: 'standalone',
         background_color: '#16171d',
         theme_color: '#16171d',
         icons: [
-          { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
-          { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
@@ -33,4 +41,4 @@ export default defineConfig({
       },
     }),
   ],
-})
+}))
