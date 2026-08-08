@@ -40,7 +40,10 @@ export class AudioEngine {
    * placeholder tracks haven't been dropped in yet) are skipped rather
    * than throwing, so the rest of the app still works.
    */
-  async loadScenes(scenes, baseUrl = "/audio/") {
+  // import.meta.env.BASE_URL reflects vite.config's `base` (e.g. "/" in
+  // dev, "/Strack/" when built for GitHub Pages), so this resolves
+  // correctly regardless of which subpath the app is actually served from.
+  async loadScenes(scenes, baseUrl = `${import.meta.env.BASE_URL}audio/`) {
     const context = this._ensureContext();
     await Promise.all(
       scenes.map(async (scene) => {

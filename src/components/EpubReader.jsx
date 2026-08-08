@@ -43,9 +43,17 @@ export default function EpubReader({ onLocationChange, onBookLoaded }) {
         bookRef.current = book;
         await book.ready;
 
+        // Pass real measured pixel numbers rather than "100%" — epub.js's
+        // paginated layout needs concrete pixels to compute column widths,
+        // and (per testing) its own percentage-height resolution against a
+        // flex-grow ancestor unreliably measures 0. The picker overlay
+        // above means this container's size doesn't change once we start
+        // reading, so this measurement stays valid.
+        const { width, height } = viewerRef.current.getBoundingClientRect();
+
         const rendition = book.renderTo(viewerRef.current, {
-          width: "100%",
-          height: "100%",
+          width: Math.floor(width),
+          height: Math.floor(height),
           flow: "paginated",
           spread: "auto",
         });
@@ -73,6 +81,18 @@ export default function EpubReader({ onLocationChange, onBookLoaded }) {
     [onLocationChange, onBookLoaded]
   );
 
+  // iPad Safari reflows this on rotation — keep epub.js's pagination in
+  // sync with the container's actual current size.
+  useEffect(() => {
+    function handleResize() {
+      if (!renditionRef.current || !viewerRef.current) return;
+      const { width, height } = viewerRef.current.getBoundingClientRect();
+      renditionRef.current.resize(Math.floor(width), Math.floor(height));
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const goPrev = () => renditionRef.current?.prev();
   const goNext = () => renditionRef.current?.next();
 
@@ -98,7 +118,10 @@ export default function EpubReader({ onLocationChange, onBookLoaded }) {
       <div
         className="epub-reader__viewer"
         ref={viewerRef}
-        style={{ display: status === "ready" ? "block" : "none" }}
+        // Always occupies its final layout space (the picker above is an
+        // absolutely-positioned overlay, not a flex sibling competing for
+        // room) so the size we measure at renderTo time never changes.
+        style={{ visibility: status === "ready" ? "visible" : "hidden" }}
       />
 
       {status === "ready" && (
