@@ -1,0 +1,89 @@
+{
+  "book": {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "epubFile": "gatsby.epub"
+  },
+  "scenes": [
+    {
+      "id": "scene_01_opening",
+      "order": 1,
+      "title": "Opening — Nick's Introduction",
+      "chapter": "I",
+      "sourceLines": "63-200",
+      "cfiStart": null,
+      "cfiEnd": null,
+      "mood": "reflective, restrained, wistful",
+      "audioFile": "scene_01_opening.mp3",
+      "loopPoint": {
+        "start": 0,
+        "end": null
+      },
+      "crossfadeDuration": 3.5
+    },
+    {
+      "id": "scene_02_party",
+      "order": 2,
+      "title": "First Gatsby Party",
+      "chapter": "III",
+      "sourceLines": "1327-1600",
+      "cfiStart": null,
+      "cfiEnd": null,
+      "mood": "glittering, chaotic, decadent",
+      "audioFile": "scene_02_party.mp3",
+      "loopPoint": {
+        "start": 0,
+        "end": null
+      },
+      "crossfadeDuration": 3.5
+    },
+    {
+      "id": "scene_03_tea_reunion",
+      "order": 3,
+      "title": "Tea Reunion — Gatsby & Daisy",
+      "chapter": "V",
+      "sourceLines": "2762-3219",
+      "cfiStart": null,
+      "cfiEnd": null,
+      "mood": "nervous, tender, suspended tension",
+      "audioFile": "scene_03_tea_reunion.mp3",
+      "loopPoint": {
+        "start": 0,
+        "end": null
+      },
+      "crossfadeDuration": 3.5
+    },
+    {
+      "id": "scene_04_plaza_confrontation",
+      "order": 4,
+      "title": "Plaza Hotel Confrontation",
+      "chapter": "VII",
+      "sourceLines": "4400-4408+",
+      "cfiStart": null,
+      "cfiEnd": null,
+      "mood": "hot, volatile, unraveling",
+      "audioFile": "scene_04_plaza_confrontation.mp3",
+      "loopPoint": {
+        "start": 0,
+        "end": null
+      },
+      "crossfadeDuration": 3.5
+    },
+    {
+      "id": "scene_05_death_and_closing",
+      "order": 5,
+      "title": "Myrtle's Death Through the End of the Book",
+      "chapter": "VII-IX",
+      "sourceLines": "4871-6431",
+      "cfiStart": null,
+      "cfiEnd": null,
+      "mood": "stark, cold, sudden dread — placeholder through the closing pages until a true closing-elegy track exists",
+      "audioFile": "scene_05_death_and_closing.mp3",
+      "loopPoint": {
+        "start": 0,
+        "end": null
+      },
+      "crossfadeDuration": 3.5
+    }
+  ]
+}
